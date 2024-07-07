@@ -5,7 +5,6 @@ This Streamlit application allows users to input URLs of research articles, proc
 ## Features
 
 - Add multiple research article URLs.
-- Remove URLs if needed.
 - Process URLs to load and split text data.
 - Generate embeddings and store them in a FAISS index.
 - Ask questions about the processed articles and receive answers with sources.
