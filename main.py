@@ -13,14 +13,24 @@ from langchain_community.vectorstores import FAISS
 st.title("Research Article Explorer Generative Artificial Intelligence")
 st.sidebar.title("📄 Article URLs")
 
+# Function to add a new URL input field
+def add_url_input():
+    urls.append("")
+    st.session_state.url_count += 1
+
+# Initialize URL count
+if 'url_count' not in st.session_state:
+    st.session_state.url_count = 1
+
 urls = []
-for i in range(3):
-    url = st.sidebar.text_input(f"🔗 URL {i + 1}")
+for i in range(st.session_state.url_count):
+    url = st.sidebar.text_input(f"🔗 URL {i + 1}", key=f"url_{i}")
     urls.append(url)
 
+st.sidebar.button("Add URL ➕", on_click=add_url_input)
 process_url_clicked = st.sidebar.button("Process URLs 🚀")
-file_path = "faiss_store_hf.pkl"
 
+file_path = "faiss_store_hf.pkl"
 main_placeholder = st.empty()
 
 llm = ChatGroq(
@@ -71,4 +81,3 @@ if query:
                 sources_list = sources.split("\n")  # Split the sources by newline
                 for source in sources_list:
                     st.write(source)
-
